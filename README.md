@@ -208,6 +208,8 @@ Xoá volume để DB sạch.
 - Cài đặt chi tiết: `INSTALL.md`
 - Giải thích siêu dễ hiểu: `ARCHITECTURE_BEGINNER.md`
 - Production đầy đủ (phía dưới) – có Nginx, TLS, backup, firewall.
+- FastAPI A-Z: `README_FASTAPI.md`
+- MQTT A-Z: `README_MQTT.md`
 
 ---
 ## 17. Production Chi Tiết (Nguyên bản)
