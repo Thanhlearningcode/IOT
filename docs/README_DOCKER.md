@@ -53,7 +53,6 @@ MQTT__PORT=1883
 - Ingestor dùng chung `.env` nhờ `env_file` trong compose.
 - Có thể override khi chạy: `POSTGRES_PASSWORD=super docker compose up -d`.
 
----
 ## 5. Lệnh cơ bản
 ```powershell
 # Build & chạy
@@ -83,6 +82,30 @@ docker compose exec api bash
 3. Dùng `uvicorn --reload` (Dev mode) trong Docker: đã cấu hình sẵn ở `command` service `api`.
 4. Kiểm tra API tại `http://localhost:8000/docs`.
 5. Mô phỏng thiết bị (ngoài Docker) bằng `python sim_device.py`.
+
+### 6.1 Cài dependency cho simulator nếu lỗi `ModuleNotFoundError`
+### 6.2 GUI nhập nhiệt độ thủ công (Realtime demo)
+File `sim_gui.py` cho phép nhập nhiệt độ và publish telemetry thủ công lên MQTT:
+```powershell
+python sim_gui.py
+```
+Topic sử dụng: `t0/devices/dev-gui-01/telemetry`.
+
+Sau khi publish:
+1. EMQX nhận message.
+2. `ingestor` ghi payload vào PostgreSQL.
+3. Flutter (đã kết nối) nhận realtime qua MQTT và tự append vào danh sách (nếu đúng device UID, chỉnh UID nếu cần).
+
+Script `sim_device.py` chạy ngoài Docker, cần cài các thư viện Python cục bộ:
+```powershell
+python -m pip install -r sim_device_requirements.txt
+# hoặc tối thiểu:
+python -m pip install requests paho-mqtt
+```
+Sau đó chạy lại:
+```powershell
+python sim_device.py
+```
 
 ---
 ## 7. Debug thường gặp

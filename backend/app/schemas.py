@@ -25,3 +25,24 @@ class CommandIn(BaseModel):
         """
         cmd: str
         params: Dict[str, Any] | None = None
+
+class DeviceRegisterIn(BaseModel):
+    device_uid: str
+    name: str | None = None
+
+class TelemetryIn(BaseModel):
+    msg_id: str | None = None
+    payload: Dict[str, Any]
+
+class CommandQueueOut(BaseModel):
+    id: int
+    cmd: str
+    params: Dict[str, Any] | None = None
+    status: str
+    created_at: str | None = None
+
+class FirmwareCheckOut(BaseModel):
+    update_available: bool
+    current_version: str
+    latest_version: str
+    url: str | None = None

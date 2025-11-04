@@ -16,6 +16,7 @@ class Device(Base):
     device_uid = Column(String, unique=True, nullable=False)
     name = Column(String)
     tenant = Column(String, default="t0")
+    device_secret = Column(String, nullable=True)  # đơn giản: lưu dạng plain cho demo, prod cần hash
     created_at = Column(DateTime(timezone=True), server_default=func.now())
 
 class Telemetry(Base):
@@ -26,3 +27,13 @@ class Telemetry(Base):
     payload = Column(JSON, nullable=False)
     ts = Column(DateTime(timezone=True), server_default=func.now(), nullable=False)
     __table_args__ = (UniqueConstraint("device_uid", "msg_id", name="uq_device_msg"),)
+
+class CommandQueue(Base):
+    __tablename__ = "command_queue"
+    id = Column(BigInteger, primary_key=True)
+    device_uid = Column(String, ForeignKey("devices.device_uid"), nullable=False)
+    cmd = Column(String, nullable=False)
+    params = Column(JSON, nullable=True)
+    status = Column(String, default="pending")  # pending|sent|acked
+    created_at = Column(DateTime(timezone=True), server_default=func.now())
+    ack_at = Column(DateTime(timezone=True))

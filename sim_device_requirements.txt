@@ -1,0 +1,4 @@
+# Dependencies for sim_device.py (ESP32-like simulator)
+# Install with: python -m pip install -r sim_device_requirements.txt
+paho-mqtt==1.6.1
+requests==2.32.3
