@@ -509,6 +509,53 @@ Chúc bạn học tốt & xây được API production đầu tiên! 🚀
 
 ---
 ## 31. Lộ Trình / Lịch Phát Triển Chi Tiết
+### Thêm: 32. Giao Tiếp FastAPI ↔ MQTT (Publish Command)
+Trong project đã có file `mqtt_pub.py` dùng `asyncio-mqtt` để publish lệnh xuống thiết bị. Ta vừa thêm endpoint:
+```python
+@app.post("/devices/{device_uid}/command", dependencies=[Depends(require_user)])
+async def send_command(device_uid: str, body: CommandIn):
+    await publish_command(device_uid, {"cmd": body.cmd, "params": body.params})
+    return {"status": "sent", "device_uid": device_uid, "cmd": body.cmd}
+```
+Schema gửi lên (trong `schemas.py`):
+```python
+class CommandIn(BaseModel):
+    cmd: str
+    params: Dict[str, Any] | None = None
+```
+Topic thiết bị phải subscribe: `t0/devices/{uid}/commands`.
+
+Luồng:
+1. Client (Flutter / Postman) gọi POST `/devices/dev-01/command` kèm JWT.
+2. FastAPI publish MQTT lệnh.
+3. Thiết bị nhận và thực thi (ví dụ reboot, đổi interval đo).
+4. (Tùy chọn) Thiết bị phản hồi kết quả lên topic khác: `t0/devices/dev-01/command_ack`.
+
+Best practices:
+| Mục | Gợi ý |
+|-----|-------|
+| Xác thực | Endpoint yêu cầu JWT (đã có Dependencies) |
+| Kiểm soát lệnh | Danh sách cmd hợp lệ (whitelist) trước khi publish |
+| Theo dõi | Lưu lệnh vào bảng `device_commands` (status: sent/ack/failed) |
+| Tránh spam | Rate limit gửi lệnh (SlowAPI) |
+| Retry | Nếu thiết bị không phản hồi → đẩy lại hoặc đánh dấu timeout |
+
+Ví dụ whitelist đơn giản:
+```python
+ALLOWED_CMDS = {"reboot", "set_interval"}
+if body.cmd not in ALLOWED_CMDS:
+    raise HTTPException(status_code=400, detail="Command not allowed")
+```
+
+Nếu muốn phản hồi realtime kết quả lệnh cho client HTTP:
+- Dùng WebSocket `/ws` để đẩy trạng thái ack.
+- Hoặc lưu DB rồi client poll `/commands/{device_uid}`.
+
+Nâng cấp tương lai:
+- Thêm correlation id: `cmd_id` để thiết bị trả về mapping kết quả.
+- Bảo mật topic commands bằng ACL (chỉ server được publish).
+- Chuyển sang shared subscription khi nhiều worker cần xử lý ack.
+- Log mọi lệnh để audit (ai gửi, lúc nào, nội dung). 
 Mục này giúp bạn có "mục lịch" rõ ràng. Chia theo giai đoạn tăng độ phức tạp. Mỗi block có mục tiêu, hạng mục và ghi chú.
 
 ### Giai đoạn 0 – Khởi động (0–0.5 ngày)

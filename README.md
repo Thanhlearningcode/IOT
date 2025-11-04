@@ -210,6 +210,7 @@ Xoá volume để DB sạch.
 - Production đầy đủ (phía dưới) – có Nginx, TLS, backup, firewall.
 - FastAPI A-Z: `README_FASTAPI.md`
 - MQTT A-Z: `README_MQTT.md`
+- PostgreSQL & SQLAlchemy A-Z: `README_POSTGRES.md`
 
 ---
 ## 17. Production Chi Tiết (Nguyên bản)
