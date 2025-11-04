@@ -1,5 +1,40 @@
 # Hướng Dẫn FastAPI Toàn Tập Cho Newbie (Dựa trên project hiện tại)
 
+> Bổ sung: mục lục chi tiết + lộ trình ("mục lịch") giúp bạn xem nhanh cần làm gì tiếp theo.
+
+## Mục lục nhanh
+1. FastAPI Là Gì? Vì Sao Dùng?
+2. Cài Đặt Nhanh & Hello World
+3. Cấu Trúc Dự Án Khuyến Nghị
+4. Endpoint (Path Operation)
+5. Request Body & Pydantic Model
+6. Dependency Injection (`Depends`)
+7. Async vs Sync Endpoint
+8. Kết Nối Database Async
+9. Authentication JWT Đơn Giản
+10. Error Handling
+11. CORS Middleware
+12. Background Tasks
+13. WebSocket Cơ Bản
+14. Pagination & Filtering
+15. Logging & Cấu Hình
+16. Testing (pytest + httpx)
+17. Tùy Biến Docs
+18. Performance Cơ Bản
+19. Bảo Mật Cốt Lõi
+20. Docker Hoá Nhanh
+21. Quản Lý Biến Môi Trường
+22. Tổ Chức Code Lớn Hơn
+23. Pitfall Thường Gặp
+24. Checklist Cho Newbie
+25. Lộ Trình Học Thêm
+26. Ví Dụ End-to-End
+27. Nâng Cấp Telemetry
+28. Tối Ưu Bảo Mật JWT
+29. Tài Nguyên Tham Khảo
+30. Kết Luận
+31. Lộ Trình / Lịch Phát Triển Chi Tiết
+
 > Mục tiêu: Sau khi đọc xong bạn hiểu cách xây dựng API với FastAPI: từ cài đặt, endpoint, model, DB async, JWT, test, bảo mật, tối ưu và đóng gói Docker.
 
 ---
@@ -471,3 +506,106 @@ async def get_telemetry(device_uid: str, db: AsyncSession = Depends(get_db)):
 FastAPI giúp bạn viết API sạch, nhanh và có docs ngay lập tức. Hãy bắt đầu từ model –> endpoint –> dependency –> test –> bảo mật –> triển khai Docker. Sau đó mở rộng bằng caching, WebSocket, phân tầng kiến trúc.
 
 Chúc bạn học tốt & xây được API production đầu tiên! 🚀
+
+---
+## 31. Lộ Trình / Lịch Phát Triển Chi Tiết
+Mục này giúp bạn có "mục lịch" rõ ràng. Chia theo giai đoạn tăng độ phức tạp. Mỗi block có mục tiêu, hạng mục và ghi chú.
+
+### Giai đoạn 0 – Khởi động (0–0.5 ngày)
+| Mục tiêu | Hạng mục | Ghi chú |
+|----------|----------|---------|
+| Chạy được API cơ bản | Hello World, 1 endpoint GET | `uvicorn --reload` để dev nhanh |
+| Tạo schema đơn giản | Pydantic model (LoginIn) | Validate 422 nếu sai |
+| JWT tối giản | create_token + require_user | Chưa cần refresh |
+
+### Giai đoạn 1 – Cơ sở dữ liệu (0.5–1 ngày)
+| Mục tiêu | Hạng mục | Ghi chú |
+|----------|----------|---------|
+| Lưu user & telemetry | SQLAlchemy async models | Dùng `async with engine.begin()` tạo bảng |
+| Repository tách logic | `user_repository.py` | Tránh query lặp lại trong endpoint |
+| Migration | Alembic init | Tạo revision đầu tiên |
+
+### Giai đoạn 2 – Chất lượng & Kiểm thử (1 ngày)
+| Mục tiêu | Hạng mục | Ghi chú |
+|----------|----------|---------|
+| Unit test | pytest + TestClient | Cover login, telemetry fetch |
+| Integration test | httpx AsyncClient | Setup DB test riêng (sqlite/memory hoặc container) |
+| CI cơ bản | GitHub Actions workflow | Chạy test + lint tự động |
+
+### Giai đoạn 3 – Bảo mật cơ bản (1–2 ngày)
+| Mục tiêu | Hạng mục | Ghi chú |
+|----------|----------|---------|
+| Hash mật khẩu | bcrypt/argon2 | Không lưu plain text |
+| Refresh token | /auth/refresh endpoint | Lưu blacklist khi revoke |
+| Role/Permission | decorator kiểm tra role | Bảng `user_roles`, `permissions` |
+| Rate limit | SlowAPI hoặc custom middleware | Bảo vệ brute-force login |
+
+### Giai đoạn 4 – Tính năng nâng cao (2–4 ngày)
+| Mục tiêu | Hạng mục | Ghi chú |
+|----------|----------|---------|
+| Pagination đầy đủ | Meta: total/pages | Cache trang đầu bằng Redis |
+| Filtering linh hoạt | Query params (from,to,sort) | Validate param dạng ISO timestamp |
+| WebSocket streaming | `/ws/telemetry` | Gửi data mới hoặc đã xử lý (average) |
+| Background tasks | Gửi email, xử lý báo cáo PDF | Sử dụng Celery/RQ nếu queue lớn |
+
+### Giai đoạn 5 – Observability (2 ngày)
+| Mục tiêu | Hạng mục | Ghi chú |
+|----------|----------|---------|
+| Metrics | Prometheus `/metrics` | uvicorn + custom counter |
+| Logging chuẩn | Structlog hoặc logging JSON | Dễ parse tập trung |
+| Tracing | OpenTelemetry + collector | Trace DB + external calls |
+| Healthcheck | `/healthz` đơn giản | Trả DB status, version |
+
+### Giai đoạn 6 – Hiệu năng & Tối ưu (tùy nhu cầu)
+| Mục tiêu | Hạng mục | Ghi chú |
+|----------|----------|---------|
+| Cache | Redis layer | TTL ngắn cho hotspot endpoints |
+| Gzip/Compression | Nginx proxy | Không bật với payload nhỏ |
+| orjson response | Custom JSONResponse | Nhanh hơn json stdlib |
+| Connection pool tuning | SQLAlchemy params | Giảm timeout khi đồng thời cao |
+
+### Giai đoạn 7 – Triển khai Production
+| Mục tiêu | Hạng mục | Ghi chú |
+|----------|----------|---------|
+| Build Docker image | Multi-stage Dockerfile | Giảm kích thước layer |
+| Reverse proxy | Nginx config TLS | Thêm HTTP/2 + security headers |
+| Env management | `.env` + secrets store | Không commit secrets |
+| Auto deploy | CI/CD pipeline | Tag image theo version semver |
+
+### Checklist Tổng Hợp Nhanh
+- [ ] Alembic migrations hoạt động
+- [ ] JWT + refresh + revoke danh sách
+- [ ] Test coverage > 70%
+- [ ] Rate limit login
+- [ ] WebSocket streaming chạy
+- [ ] `/metrics` có số liệu custom
+- [ ] Logging JSON
+- [ ] Healthcheck OK
+- [ ] Docker image nhỏ (<150MB)
+- [ ] CI/CD build + test pass trước deploy
+
+### Gợi Ý Ưu Tiên (Khi Ít Thời Gian)
+1. Bảo mật cơ bản (hash password) trước.
+2. Test login + telemetry (unit/integration).
+3. Alembic migrations để tránh mất dữ liệu khi đổi schema.
+4. Thêm rate limit để ngăn brute-force.
+5. Sau đó mới WebSocket & Observability.
+
+### Sai Lầm Thường Gặp Khi Lên Lịch
+| Sai lầm | Hậu quả | Cách tránh |
+|---------|---------|-----------|
+| Xây nhiều tính năng trước bảo mật | Lộ dữ liệu, khó retrofit | Chốt auth + hash sớm |
+| Không có migration | Mất dữ liệu khi đổi cột | Dùng Alembic ngay từ đầu |
+| Thiếu test trước refactor | Gãy tính năng âm thầm | Viết test nhỏ ngay khi thêm endpoint |
+| Bật reload ở prod | Performance kém, nhiều process | Tắt `--reload` ở môi trường production |
+| Không giám sát | Khó debug lỗi runtime | Thêm log + metrics tối thiểu |
+
+### Lộ Trình Dài Hạn (Sau 1–3 Tháng)
+- Tách microservices (auth riêng, telemetry xử lý riêng)
+- Thêm GraphQL gateway nếu cần query linh hoạt
+- Sử dụng gRPC giữa services nội bộ
+- Feature flag / canary deploy
+- Chaos testing (mô phỏng lỗi ngẫu nhiên)
+
+---
+> Bạn có thể copy bảng này thành file riêng `ROADMAP_FASTAPI.md` nếu muốn quản lý version.
