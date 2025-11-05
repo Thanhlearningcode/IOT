@@ -1,4 +1,4 @@
-# Kiến Trúc Hệ Thống (Phiên bản Dễ Hiểu Cho Newbie)
+# Kiến Trúc Hệ Thống 
 
 > Mục tiêu: Sau khi đọc xong bạn nắm được "mảnh ghép" trong hệ thống và dữ liệu đi từ thiết bị đến màn hình Flutter như thế nào.
 

@@ -1,4 +1,4 @@
-# PostgreSQL & SQLAlchemy Async A‑Z (Dành Cho Newbie – Trong Bối Cảnh Project)
+# PostgreSQL & SQLAlchemy Async A‑Z 
 
 > Mục tiêu: Hiểu cách kết nối, thiết kế bảng, truy vấn, tối ưu, bảo mật, kiểm thử và mở rộng dữ liệu telemetry trong hệ thống FastAPI + PostgreSQL.
 

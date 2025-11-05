@@ -1,4 +1,4 @@
-# Tutorial MQTT A‑Z Cho Newbie (Dựa Trên Project Này)
+# Tutorial MQTT A‑Z 
 
 > Mục tiêu: Hiểu rõ MQTT là gì, cách thiết kế topic & payload, cách publish/subscribe bằng Python và Flutter, chống trùng dữ liệu, mở rộng quy mô, bảo mật, và xử lý sự cố.
 

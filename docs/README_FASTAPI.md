@@ -1,6 +1,4 @@
-# Hướng Dẫn FastAPI Toàn Tập Cho Newbie (Dựa trên project hiện tại)
-
-> Bổ sung: mục lục chi tiết + lộ trình ("mục lịch") giúp bạn xem nhanh cần làm gì tiếp theo.
+# Hướng Dẫn FastAPI 
 
 ## Mục lục nhanh
 1. FastAPI Là Gì? Vì Sao Dùng?
