@@ -119,4 +119,4 @@ python -m backend.ingestor.run
 
 ---
 ## 13. Kết luận
-Tài liệu này giúp bạn nhanh chóng nắm lại backend: REST API, cơ chế auth đơn giản, worker ingest dữ liệu qua MQTT và cách gửi command. Khi cần đổi behaviour, xem lại từng file tương ứng rồi cập nhật.
+Tài liệu này  nhanh chóng nắm lại backend: REST API, cơ chế auth đơn giản, worker ingest dữ liệu qua MQTT và cách gửi command. Khi cần đổi behaviour, xem lại từng file tương ứng rồi cập nhật.

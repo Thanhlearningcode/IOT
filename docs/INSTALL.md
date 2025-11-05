@@ -150,7 +150,4 @@ docker compose down -v
 | CORS | * | Giới hạn domain |
 | Uvicorn reload | ON | Tắt khi ổn định |
 
-## 18. Tiếp theo?
-Đã cài xong → Quay lại `README.md` để xem kiến trúc, luồng dữ liệu và production.
 
-Chúc bạn thành công! 🚀

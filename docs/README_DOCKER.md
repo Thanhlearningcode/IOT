@@ -160,4 +160,4 @@ docker compose cp api:/app/app/main.py .\tmp\main.py
 
 ---
 ## 14. Kết luận
-Docker giúp khởi chạy toàn bộ hệ thống nhanh chóng, cô lập môi trường và dễ scale. Nắm rõ `docker compose`, volume, biến môi trường và quy trình debug sẽ giúp bạn phát triển, demo và triển khai sản phẩm IoT này hiệu quả hơn.
+Docker giúp khởi chạy toàn bộ hệ thống nhanh chóng, cô lập môi trường và dễ scale. Nắm rõ `docker compose`, volume, biến môi trường và quy trình debug sẽ giúp  phát triển, demo và triển khai sản phẩm IoT này hiệu quả hơn.

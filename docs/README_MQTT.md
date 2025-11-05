@@ -305,6 +305,4 @@ mosquitto_pub -h localhost -t 't0/devices/dev-01/telemetry' -m '{"msg_id":"m1","
 
 ---
 ## Kết Luận
-Bạn đã nắm nền tảng MQTT trong bối cảnh hệ thống: thiết bị → broker → ingestor → DB → REST + realtime UI. Hãy bắt đầu từ publish đơn giản, sau đó thêm QoS, retained, idempotency, bảo mật, scaling.
-
-Chúc bạn thành công! 🚀
+Nền tảng MQTT trong bối cảnh hệ thống: thiết bị → broker → ingestor → DB → REST + realtime UI. Hãy bắt đầu từ publish đơn giản, sau đó thêm QoS, retained, idempotency, bảo mật, scaling.

@@ -655,4 +655,4 @@ Mục này giúp bạn có "mục lịch" rõ ràng. Chia theo giai đoạn tăn
 - Chaos testing (mô phỏng lỗi ngẫu nhiên)
 
 ---
-> Bạn có thể copy bảng này thành file riêng `ROADMAP_FASTAPI.md` nếu muốn quản lý version.
+> Có thể copy bảng này thành file riêng `ROADMAP_FASTAPI.md` nếu muốn quản lý version.

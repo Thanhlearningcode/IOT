@@ -427,8 +427,8 @@ Nâng cấp:
 
 ---
 ## 29. Kết Luận
-Bạn đã có nền tảng giao tiếp PostgreSQL: model → session → CRUD → transaction → tối ưu. Khi dữ liệu lớn, nghĩ đến partition, index logic, cache và pipeline ETL.
+Nền tảng giao tiếp PostgreSQL: model → session → CRUD → transaction → tối ưu. Khi dữ liệu lớn, nghĩ đến partition, index logic, cache và pipeline ETL.
 
 Tiếp theo: áp dụng repository + migrations, đo hiệu năng, bảo vệ dữ liệu dài hạn.
 
-Chúc bạn làm chủ được PostgreSQL trong hệ thống IoT này! 🚀
+Làm chủ được PostgreSQL trong hệ thống IoT này! 🚀

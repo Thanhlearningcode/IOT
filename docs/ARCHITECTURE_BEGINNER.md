@@ -148,6 +148,6 @@ Bấm “Login REST” → “Connect MQTT”.
 | Làm sao biết message trùng? | Cùng `device_uid` + `msg_id` đã tồn tại (UNIQUE vi phạm). |
 
 ## 15. Kết Luận
-Bạn vừa xem phiên bản "dễ hiểu" của kiến trúc: tư duy như bưu điện chuyển gói; MQTT để gói tới ngay, REST để tra cứu lịch sử. Nắm vững 4 điểm cốt lõi: Topics, Ingestor, UNIQUE, Kết hợp REST + MQTT.
+phiên bản "dễ hiểu" của kiến trúc: tư duy như bưu điện chuyển gói; MQTT để gói tới ngay, REST để tra cứu lịch sử. Nắm vững 4 điểm cốt lõi: Topics, Ingestor, UNIQUE, Kết hợp REST + MQTT.
 
-Chúc bạn học vui và xây được hệ thống IoT đầu tiên! 🚀
+
