@@ -257,13 +257,3 @@ Khi API `/devices/{id}/command` gửi `"TURN_ON"`, ESP32 sẽ nhận lệnh qua 
 
 ---
 
-## 🧾 License
-
-MIT License © 2025
-
----
-
-## 👨‍💻 Tác giả
-**TRÍ TUỆ NHÂN TẠO AI GPT / @tuyetsonphiho178**
-
-Liên hệ: [tuyetsonphiho178@gmail.com](mailto:tuyetsonphiho178@gmail.com)
