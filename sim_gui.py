@@ -1,12 +1,17 @@
 """Simple GUI publisher for manual telemetry injection.
 
 Usage:
-  python sim_gui.py
+    python3 sim_gui.py
 Enter temperature value and click Publish.
 Publishes JSON to topic: t0/devices/dev-gui-01/telemetry
 
 No registration or secret needed (MQTT only path). Ingestor will persist.
 """
+import sys
+
+if sys.version_info < (3, 7):
+        raise SystemExit("sim_gui.py requires Python 3.7+. Please run with `python3 sim_gui.py`.")
+
 import json, time, random
 import tkinter as tk
 from tkinter import ttk

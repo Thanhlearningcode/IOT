@@ -22,7 +22,24 @@ db:
     - POSTGRES_DB=app
     - POSTGRES_USER=app
     - POSTGRES_PASSWORD=secret
-  ports: ["5432:5432"]
+  ports: ["5433:5432"]
+  volumes:
+    - pg_data:/var/lib/postgresql/data
+```
+
+`pgAdmin` – GUI quản lý Postgres đi kèm compose:
+```yaml
+pgadmin:
+  image: dpage/pgadmin4:8.11
+  environment:
+    - PGADMIN_DEFAULT_EMAIL=admin@local.test
+    - PGADMIN_DEFAULT_PASSWORD=ChangeMe!
+    - PGADMIN_CONFIG_SERVER_MODE=False
+  ports: ["5050:80"]
+  depends_on:
+    - db
+  volumes:
+    - pgadmin_data:/var/lib/pgadmin
 ```
 Local manual (tuỳ chọn):
 ```bash
@@ -32,8 +49,18 @@ sudo -u postgres createdb -O app app
 ```
 Kết nối kiểm tra:
 ```powershell
-psql -h localhost -U app -d app -c "SELECT 1;"
+psql -h localhost -p 5433 -U app -d app -c "SELECT 1;"
 ```
+
+### 2.1. Dùng pgAdmin trên máy dev
+- Mở trình duyệt: http://localhost:5050
+- Đăng nhập bằng email `admin@local.test`, mật khẩu `ChangeMe!`
+- Add New Server → General > Name: `Local Docker`
+  - Connection > Host name: `db`
+  - Port: `5432`
+  - Username: `app`, Password: `secret`
+- Tích "Save Password?" để không phải nhập lại.
+Sau khi lưu, bạn có thể duyệt schema `public`, xem bảng `telemetry`, chạy query trực tiếp.
 
 ---
 ## 3. Chuỗi Kết Nối (Connection URL)

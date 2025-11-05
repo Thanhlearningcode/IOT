@@ -76,8 +76,10 @@ File quan trọng:
 docker compose up -d --build
 docker compose ps
 ```
+> Muốn chạy toàn bộ pipeline (khởi động stack, chạy simulator, kiểm tra API) chỉ với 1 lệnh: `bash scripts/run_end_to_end.sh --install-sim-deps`
 Swagger: http://localhost:8000/docs  
 EMQX Dashboard: http://localhost:18083  
+pgAdmin (PostgreSQL GUI): http://localhost:5050 (email: `admin@local.test`, password: `ChangeMe!`)
 
 Lấy JWT demo:
 ```powershell
@@ -184,6 +186,11 @@ Hướng dẫn đầy đủ production ở cuối file (giữ nguyên). Xem thê
 docker compose ps
 docker logs mqtt_fastapi_postgres_flutter_demo-api-1 --tail 50
 docker logs mqtt_fastapi_postgres_flutter_demo-ingestor-1 --tail 50
+# Automation helpers (run with bash):
+bash scripts/dev_stack.sh start
+bash scripts/dev_stack.sh logs api
+bash scripts/run_simulator.sh --install-deps
+bash scripts/run_end_to_end.sh --install-sim-deps --duration 30
 ```
 
 ---

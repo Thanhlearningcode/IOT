@@ -16,11 +16,25 @@ services:
       - POSTGRES_DB=app
       - POSTGRES_USER=app
       - POSTGRES_PASSWORD=secret
-    ports: ["5432:5432"]
+    ports: ["5433:5432"]
+    volumes:
+      - pg_data:/var/lib/postgresql/data
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U app -d app"]
       interval: 5s
       retries: 10
+
+  pgadmin:
+    image: dpage/pgadmin4:8.11
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=admin@local.test
+      - PGADMIN_DEFAULT_PASSWORD=ChangeMe!
+      - PGADMIN_CONFIG_SERVER_MODE=False
+    ports: ["5050:80"]
+    depends_on:
+      - db
+    volumes:
+      - pgadmin_data:/var/lib/pgadmin
 
   api:
     build: ./backend
@@ -46,3 +60,7 @@ services:
     depends_on:
       - db
       - emqx
+
+volumes:
+  pg_data:
+  pgadmin_data:
